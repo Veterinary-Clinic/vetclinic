@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+< lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserHub</title>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/admin/tables.css">
+	<link rel="stylesheet" href="/css/pets.css">
+
+    <link rel="icon" href="/images/logo.png" type="image/icon type" />
+     
+</head>
+
+<body>
+    <section th:replace="fragments/userSidebar :: userSidebar"></section>
+
+    <section id="content">
+        <nav th:replace="fragments/userHeader::userHeader"></nav>
+
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Your Pets</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">UserProfile</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Pets</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Breed</th>
+                                <th>Age</th>
+                                <th>Weight</th>
+                                <th>Gender</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="pet: ${pets}">
+                                <td th:text="${pet.id}"></td>
+                                <td th:text="${pet.name}"></td>
+                                <td th:text="${pet.type}"></td>
+                                <td th:text="${pet.breed}"></td>
+                                <td th:text="${pet.age}"></td>
+                                <td th:text="${pet.weight}"></td>
+                                <td th:text="${pet.gender}"></td>
+                                <td>
+                                    <a class="buttons" id="edit" th:href="@{/user/{id}/editPet(id=${pet.id})}">Edit</a>
+                                    <form th:action="@{/user/{id}/deletePet(id=${pet.id})}" method="post">
+                                        <button class="buttons" id="delete" type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a class="buttons" id="edit" th:href="@{/user/addPet}">Add New Pet</a>
+            </div>
+        </main>
+    </section>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/admin/tables.css">
+    <link rel="icon" href="/images/logo.png" type="image/icon type" />
+    <title>UserHub</title>
+
+    <!-- Your HTML content here -->
+
+    <button class="whatsapp_float" onclick="openForm()">
+        <i class="bx bxl-whatsapp whatsapp-icon"></i>
+    </button>
+
+    <div class="chat-popup" id="myForm">
+        <form action="/action_page.php" class="form-container">
+            <label for="msg"><b>Message</b></label>
+            <br>
+            <br>
+            <div class="containery">
+                <p>Hello. How can we help you ?</p>
+                <div class="containery darker">
+                    <p>Hey! </p>
+                    <p>I was asking about an appointment!</p>
+                </div>
+                <br>
+                <a href="https:/wa.me/201016244406" target="_blank" class="btn">Send us via WP</a>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
+

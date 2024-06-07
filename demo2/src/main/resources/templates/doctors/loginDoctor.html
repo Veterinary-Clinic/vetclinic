@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="/css/doctor/loginDoctor.css">
+  <style>
+    .error-message {
+      color: red;
+    }
+    /* Style for the input fields */
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2 style="color: var(--success);">Login</h2>
+    <form class="login-form" th:action="@{/doctor/login}" th:object="${doctor}" method="POST" onsubmit="return validateLoginForm()">
+    
+      <input type="email" id="email" th:field="*{email}" placeholder="Email" required>
+      <span id="emailError" class="error-message"></span><br>
+      
+      <input type="password" id="password" th:field="*{password}" placeholder="Password" required>
+      <span id="passwordError" class="error-message"></span><br>
+      <button type="submit" id="sign">Login</button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/js/doctorLoginValidation.js"></script>
+</body>
+</html>

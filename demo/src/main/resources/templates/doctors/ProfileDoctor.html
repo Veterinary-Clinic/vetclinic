@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	
+	<link rel="stylesheet" href="/css/doctor/ProfileDoctor.css">
+	<link rel="icon" href="/images/logo.png" type="image/icon type" />
+	<title>DoctorHub</title>
+</head>
+
+<body>
+
+	<section th:replace="fragments/doctorSidebar :: doctorSidebar"></section>
+	
+	<section id="content">
+		<nav th:replace = "fragments/doctorNavbar::doctorNavbar"></nav>
+
+	
+		<main>
+			<div class="head-title">
+				<div class="left">
+					
+					<ul class="breadcrumb">
+						<li>
+							<a href="/doctor/Profile">DoctorProfile</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="/doctor/Profile">profile</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="container rounded bg-white mt-5 mb-5">
+				<div class="row">
+					
+					<div class="col-md-5 border-right">
+						<div class="p-3 py-5">
+							<div class="d-flex justify-content-between align-items-center mb-3">
+								<h4 class="text-right">Profile Settings</h4>
+							</div>
+							
+							<div class="row mt-2">
+								<div class="col-md-6">
+									<label class="labels">ID: <span th:text="${id}"></span></label>
+								</div>
+								<div class="col-md-6">
+									<label class="labels">Name: <span th:text="${name}"></span></label>
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-md-12">
+									<label class="labels">Mobile Number: <span th:text="${phonenumber}"></span></label>
+								</div>
+								<div class="col-md-12">
+									<label class="labels">Email: <span th:text="${email}"></span></label>
+								</div>
+
+								<br>
+								<a href="/doctor/editProfile" class="profile-form">Edit Profile</a>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+</body>
+
+</html>

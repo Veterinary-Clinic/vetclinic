@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/admin/addDoctor.css">
+    <link rel="icon" href="../../images/logo.png" type="image/icon type" />
+
+    <title>AdminHub</title>
+    <style>
+        .error {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <section th:replace="fragments/adminSidebar :: adminSidebar"></section>
+
+    <!-- CONTENT -->
+    <section id="content">
+        <nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Add A New Admin</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="index.html">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Add Admin</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <form class="form" action="#" th:action="@{/admin/addAdmin}" th:object="${admin}" method="post" id="addAdminForm">
+                        <div class="input-box">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" th:field="*{username}" placeholder="Username" required>
+                            <span class="error" id="usernameError"></span>
+                            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                        </div>
+                        <div class="input-box">
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" th:field="*{email}" placeholder="Email" required>
+                            <span class="error" id="emailError"></span>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </div>
+                        <div class="input-box">
+                            <label for="phonenumber">Phone Number:</label>
+                            <input type="text" id="phonenumber" th:field="*{phonenumber}" placeholder="Phone Number" required>
+                            <span class="error" id="phoneError"></span>
+                            <span th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}"></span>
+                        </div>
+                        <div class="input-box">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" th:field="*{password}" placeholder="Password" required>
+                            <span class="error" id="passwordError"></span>
+                            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                        </div>
+                        <div class="input-box">
+                            <label for="gender">Gender</label>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <input type="radio" th:field="*{gender}" name="gender" id="male" value="Male">
+                                <label for="male">Male</label>
+                            </div>
+                            <div class="column">
+                                <input type="radio" th:field="*{gender} " name="gender" id="female" value="Female">
+                                <label for="female">Female</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" name="submit" id="submit-button" value="submit">Add Admin</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function validateForm() {
+                let isValid = true;
+
+                // Username validation
+                const username = $('#username').val().trim();
+                if (username === '') {
+                    $('#usernameError').text('Please enter a username').show();
+                    isValid = false;
+                } else {
+                    $('#usernameError').text('').hide();
+                }
+
+                // Email validation
+                const email = $('#email').val().trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    $('#emailError').text('Please enter a valid email').show();
+                    isValid = false;
+                } else {
+                    $('#emailError').text('').hide();
+                }
+
+                // Phone number validation
+                const phone = $('#phonenumber').val().trim();
+                const phoneRegex = /^\d{11}$/;
+                if (!phoneRegex.test(phone)) {
+                    $('#phoneError').text('Please enter a valid phone number (exactly 11 digits)').show();
+                    isValid = false;
+                } else {
+                    $('#phoneError').text('').hide();
+                }
+
+                // Password validation
+                const password = $('#password').val().trim();
+                if (password.length < 8) {
+                    $('#passwordError').text('Password must be at least 8 characters long').show();
+                    isValid = false;
+                } else {
+                    $('#passwordError').text('').hide();
+                }
+
+                return isValid;
+            }
+
+            $('#addAdminForm').on('submit', function (e) {
+                if (!validateForm()) {
+                    e.preventDefault();
+                }
+            });
+
+            $('#username, #email, #phonenumber, #password').on('input', function () {
+                validateForm();
+            });
+        });
+    </script>
+</body>
+
+</html>

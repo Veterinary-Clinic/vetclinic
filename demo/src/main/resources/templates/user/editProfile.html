@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Boxicons -->
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <!-- My CSS -->
+  <link rel="stylesheet" href="/css/doctor/Profile.css">
+  <link rel="icon" href="/images/logo.png" type="image/icon type" />
+  <title>UserHub</title>
+</head>
+
+<body>
+	<section th:replace="fragments/userSidebar :: userSidebar"></section>
+	<!-- CONTENT -->
+	<section id="content">
+		<nav th:replace = "fragments/userHeader::userHeader"></nav>
+
+
+    <!-- MAIN -->
+    <main>
+      <div class="head-title">
+        <div class="left">
+          <h1>Profile</h1>
+          <ul class="breadcrumb">
+            <li>
+              <a href="/user/Profile">UserProfile</a>
+            </li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li>
+              <a class="active" href="/user/Profile">profile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+ 
+
+      <div class="container">
+        <form action="/user/editProfile" method="post">
+          <div class="row">
+            <div class="col-25">
+              <label for="name">Name</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="name" name="name" placeholder="Edit Your name.." th:value="${user.name}">
+              <!-- Use Thymeleaf to populate value -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="Email">Email</label>
+            </div>
+            <div class="col-75">
+              <input type="email" id="email" name="email" placeholder="Edit Your email.." th:value="${user.email}">
+              <!-- Use Thymeleaf to populate value -->
+            </div>
+          </div>
+         
+          <br>
+          <div class="row">
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
+
+    </main>
+  </section>

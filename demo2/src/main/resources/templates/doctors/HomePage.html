@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Page</title>
+  <link rel="stylesheet" href="/css/doctor/SignUp.css"> <!-- Assuming your CSS file path is correct -->
+  <!-- Include jQuery library (if not already included) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/Js/signup-dr.js" defer></script> <!-- Include your separate JavaScript file -->
+</head>
+<body>
+  <div class="signup-container">
+    <h2 style="color: var(--success);">Sign Up</h2>
+    <form class="signup-form" th:action="@{/doctor/signup}" th:object="${doctor}" method="post">
+      <input type="text" th:field="*{name}" name="name" placeholder="Name" required>
+      <input type="email" th:field="*{email}" name="email" placeholder="Email" required>
+      <input type="password" th:field="*{password}" name="password" placeholder="Password" required>
+      <input type="text" th:field="*{phonenumber}" name="phonenumber" placeholder="Phone Number" required>
+      <select th:field="*{gender}" name="gender" required title="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+</body>
+</html>

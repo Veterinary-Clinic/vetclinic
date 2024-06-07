@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="/css/doctor/ProfileDoctor.css">
+    <link rel="icon" href="/images/logo.png" type="image/icon type" />
+    <title>DoctorHub</title>
+
+    
+</head>
+
+<body>
+    <section th:replace="fragments/doctorSidebar :: doctorSidebar"></section>
+
+    <section id="content">
+        <nav th:replace="fragments/doctorNavbar::doctorNavbar"></nav>
+
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                   
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/doctor/Profile">DoctorProfile</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="/doctor/Profile">profile</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container">
+              <h1>Edit Profile</h1>
+                <form action="/doctor/editProfile" method="post">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" id="name" name="name" placeholder="Edit Your name.." th:value="${doctor.name}">
+                           
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Email">Email</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="email" id="email" name="email" placeholder="Edit Your email.." th:value="${doctor.email}">
+                            
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+
+        </main>
+    </section>
+</body>
+
+</html>

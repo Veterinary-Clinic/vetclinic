@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta content="Free HTML Templates" name="keywords">
+	<meta content="Free HTML Templates" name="description">
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="../../css/admin/addDoctor.css">
+	<link rel="icon" href="../../images/logo.png" type="image/icon type" />
+    <link rel="stylesheet" href="../../css/admin/logoutDoctor.css">
+	<title>AdminHub</title>
+</head>
+
+	<!-- CONTENT -->
+	<section id="content">
+		<nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+        <body>
+            <main>
+            <ul class="side-menu">
+                <li>
+                    <a href="#">
+                        <i class="bx bxs-cog"></i>
+                        <span class="text">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/logout}" class="logout">
+                        <i class="bx bxs-log-out-circle"></i>
+                        <span class="text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="logout-container">
+                <h2>Are you sure you want to logout?</h2>
+                <div class="buttons">
+                    <form th:action="@{/admin/logout}" method="post">
+                        <button type="submit">Yes</button>
+                    </form>
+                    <a href="/index">No</a>
+                </div>
+            </div>
+        </main>
+        </body>
+        </html>

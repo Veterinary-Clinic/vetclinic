@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="/css/admin/tables.css">
+	<link rel="icon" href="/images/logo.png" type="image/icon type" />
+
+
+	<title>AdminHub</title>
+</head>
+
+<body>
+	<section th:replace="fragments/adminSidebar :: adminSidebar"></section>
+	<!-- CONTENT -->
+	<section id="content">
+		<nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="index.html">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">Pets</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="order">
+					<table>
+						<thead>
+							<tr>
+								<th>Pet's Owner</th>
+								<th>Doctor</th>
+								<th>Pet's Type</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Hagar</td>
+								<td>Sara Yasser</td>
+								<td>Dog</td>
+								<td>
+									<button class="buttons" id="delete"><a href="#">Delete</a></button>
+								</td>
+							</tr>
+							<tr>
+								<td>Hagar</td>
+								<td>Sara Yasser</td>
+								<td>Dog</td>
+								<td>
+									<button class="buttons" id="delete"><a href="#">Delete</a></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+
+</body>
+
+</html>

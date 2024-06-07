@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="/css/admin/tables.css">
+	<link rel="icon" href="/images/logo.png" type="image/icon type" />
+
+	<title>AdminHub</title>
+</head>
+
+<body>
+    <section th:replace="fragments/adminSidebar :: adminSidebar"></section>
+
+    <section id="content">
+        <nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+
+
+        <!-- Booking Start -->
+        <main>
+            <div class="table-data">
+                <div class="order">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="appointment: ${appointments}">
+                                <td th:if="${appointment != null}" th:text="${appointment.doctor.name}"></td>
+                                <td th:if="${appointment != null}" th:text="${appointment.date}"></td>
+                                <td th:if="${appointment != null}" th:text="${appointment.startHr}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <!-- Booking end -->
+    </section>
+
+</body>
+
+</html>

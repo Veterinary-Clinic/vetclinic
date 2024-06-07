@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/addPet.css">
+    <link rel="icon" href="/images/logo.png" type="image/icon type" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/Js/DrLogin.js"></script>
+    <title>UserHub</title>
+</head>
+
+<body>
+
+    <section th:replace="fragments/userSidebar :: userSidebar"></section>
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <nav th:replace="fragments/userHeader :: userHeader"></nav>
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Add Pet</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="index.html">User Profile</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Add Pet</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <h2>Pet Registration Form</h2>
+                    <form th:action="@{/user/addPet}" th:object="${pet}" method="post" id="addPetForm" onsubmit="return validateForm()">
+                        <label for="pet_name">Pet Name:</label>
+                        <input type="text" id="pet_name" name="name" th:field="*{name}" required>
+                        <div id="nameError" style="color: red; display: none;"></div>
+
+                        <label for="pet_type">Pet Type:</label>
+                        <select id="pet_type" name="type" th:field="*{type}" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                            <option value="bird">Bird</option>
+                            <option value="rabbit">Rabbit</option>
+                            <option value="other">Other</option>
+                        </select>
+
+                        <label for="pet_breed">Breed:</label>
+                        <input type="text" id="pet_breed" name="breed" th:field="*{breed}" required>
+                        <div id="breedError" style="color: red; display: none;"></div>
+
+                        <label for="pet_age">Age:</label>
+                        <input type="number" id="pet_age" name="age" th:field="*{age}" required>
+                        <div id="ageError" style="color: red; display: none;"></div>
+
+                        <label for="pet_weight">Weight:</label>
+                        <input type="number" id="pet_weight" name="weight" th:field="*{weight}" required>
+                        <div id="weightError" style="color: red; display: none;"></div>
+
+                        <label for="pet_gender">Gender:</label>
+                        <select id="pet_gender" name="gender" th:field="*{gender}" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+
+                        <button type="submit" name="submit" id="submit-button" value="submit">Add Pet</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script type="text/javascript" src="/Js/petValidation.js"></script>
+
+
+</body>
+
+</html>

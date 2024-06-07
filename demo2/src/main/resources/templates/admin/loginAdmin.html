@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="/css/doctor/loginDoctor.css">
+</head>
+<body>
+  <div class="login-container">
+    <h2 style="color: var(--success);">Login</h2>
+    <form class="login-form" th:action="@{/admin/login}" th:object="${admin}" method="POST">
+      <input type="hidden" th:field="*{id}" placeholder="id" required>
+      <input type="text" th:field="*{username}" placeholder="name" required>
+      <input type="password" th:field="*{password}" placeholder="Password" required>
+      <button input type="submit">Login</button>
+    </form>
+  </div>
+  <script>
+    function validateLoginForm() {
+      var name = document.getElementById("username").value.trim();
+      var password = document.getElementById("password").value.trim();
+
+      // Simple validation for name
+      if (name === "") {
+        alert("Please enter your name");
+        return false;
+      }
+
+      // Password validation
+      if (password === "") {
+        alert("Please enter your password");
+        return false;
+      }
+      if (password.length < 8) {
+    alert("Password should be at least 8 characters long");
+    return false;
+  }
+      return true; 
+    }
+  </script>
+</body>
+</html>

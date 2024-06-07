@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/admin/profile.css">
+    <link rel="icon" href="/images/logo.png" type="image/icon type" />
+    <title>AdminHub</title>
+</head>
+
+<body>
+    <section th:replace="fragments/adminSidebar :: adminSidebar"></section>
+    <!-- CONTENT -->
+    <section id="content">
+        <nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Profile</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a th:href="@{/admin/Profile}">AdminProfile</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" th:href="@{/admin/Profile}">profile</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container rounded bg-white mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-3 border-right">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                            <img class="rounded-circle mt-5" width="150px" src="/images/user.png" title="img">
+                        </div>
+                    </div>
+                    <div class="col-md-5 border-right">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-right">Profile Settings</h4>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label class="labels">Name: <span th:text="${username}"></span></label>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label class="labels">Phonenumber: <span th:text="${phonenumber}"></span></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="labels">Email: <span th:text="${email}"></span></label>
+                                </div>
+                                <br>
+                                <a href="/admin/edit" class="profile-form">Edit Profile</a>
+                                <br><br>
+                                <form action="/admin/deleteAccount" method="post">
+                                    <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> -->
+                                    <button type="submit" class="profile-form">Delete Account</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+</body>
+
+</html>

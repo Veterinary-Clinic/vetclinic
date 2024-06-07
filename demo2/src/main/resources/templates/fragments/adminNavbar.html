@@ -1,0 +1,22 @@
+<html>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body>
+    <nav th:fragment="adminNavbar">
+        <i class='bx bx-menu'></i>
+        <a href="#" class="nav-link">Categories</a>
+        <form action="#">
+            <div class="form-input">
+                <input type="search" placeholder="Search...">
+                <button type="submit" class="search-btn"><i class='bx bx-search'
+                        title="Toggle Navigation"></i></button>
+            </div>
+        </form>
+        <a th:href="@{/admin/profile}" class="profile">
+            <img src="/images/profile.jpg" alt="Image">
+        </a>
+    </nav>
+</body>
+
+</html>

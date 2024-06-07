@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/admin/tables.css">
+    <link rel="icon" href="/images/logo.png" type="image/icon type" />
+    <html xmlns: th="http://www.thymleaf.org">
+
+    <title>DoctorHub</title>
+</head>
+
+<body>
+    <section th:replace="fragments/doctorSidebar::doctorSidebar"></section>
+    <!-- CONTENT -->
+    <section id="content">
+        <nav th:replace="fragments/doctorNavbar::doctorNavbar"></nav>
+        <!-- MAIN -->
+        <main>
+            <div class="table-data">
+                <div class="order">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="appointment: ${appointments}">
+                                <td th:text="${appointment.date}"></td>
+                                <td th:text="${appointment.startHr}"></td>
+                                <td th:text="${appointment.endHr}"></td>
+                                <td>
+                                    <a class="buttons" id="edit" th:href ="@{/appointments/edit-appointment/{id}(id=${appointment.id})}">Edit</a>
+                                    <a class="buttons" id="delete" th:href ="@{/appointments/delete(id=${appointment.id})}">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="../../css/admin/addDoctor.css">
+    <link rel="icon" href="../../images/logo.png" type="image/icon type" />
+    <title>AdminHub</title>
+    <style>
+        .error {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <section th:replace="fragments/adminSidebar :: adminSidebar"></section>
+
+    <!-- CONTENT -->
+    <section id="content">
+        <nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Add A New Doctor</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="index.html">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Add Doctor</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <form th:action="@{/admin/addDoctor}" th:object="${Doctor}" method="post" class="form" id="addDoctorForm">
+                        <div class="input-box">
+                            <label for="name">Name</label>
+                            <input type="text" th:field="*{name}" id="name" name="name" placeholder="Enter doctor's name" required />
+                            <div class="error" id="nameError"></div>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="number">Phone Number</label>
+                            <input type="text" th:field="*{phonenumber}" id="number" name="number" placeholder="Enter doctor's number" required />
+                            <div class="error" id="phoneError"></div>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="email">Email</label>
+                            <input type="email" th:field="*{email}" id="email" name="email" placeholder="Enter doctor's email" required />
+                            <div class="error" id="emailError"></div>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="password">Password</label>
+                            <input type="password" th:field="*{password}" id="password" name="password" placeholder="Enter doctor's password" required />
+                            <div class="error" id="passwordError"></div>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="gender">Gender</label>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <input type="radio" th:field="*{gender}" name="gender" id="male" value="Male">
+                                <label for="male">Male</label>
+                            </div>
+                            <div class="column">
+                                <input type="radio" th:field="*{gender} " name="gender" id="female" value="Female">
+                                <label for="female">Female</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" name="submit" id="submit-button">Add Doctor</button>
+                    </form>
+
+                </div>
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#email').on('input', function () {
+                var email = $(this).val();
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (!emailRegex.test(email)) {
+                    $('#emailError').text('Please enter a valid email').show();
+                    $('#submit-button').prop('disabled', true);
+                } else {
+                    $('#emailError').text('').hide();
+                    $('#submit-button').prop('disabled', false);
+                }
+            });
+
+            $('#password').on('input', function () {
+                var password = $(this).val();
+                if (password.length < 8) {
+                    $('#passwordError').text('Password must be at least 8 characters long').show();
+                    $('#submit-button').prop('disabled', true);
+                } else {
+                    $('#passwordError').text('').hide();
+                    $('#submit-button').prop('disabled', false);
+                }
+            });
+
+            $('#number').on('input', function () {
+                var phone = $(this).val();
+                var phoneRegex = /^\d{11}$/;
+                if (!phoneRegex.test(phone)) {
+                    $('#phoneError').text('Please enter a valid phone number (exactly 11 digits)').show();
+                    $('#submit-button').prop('disabled', true);
+                } else {
+                    $('#phoneError').text('').hide();
+                    $('#submit-button').prop('disabled', false);
+                }
+            });
+
+            $('#name').on('input', function () {
+                var name = $(this).val();
+                if (name.trim() === '') {
+                    $('#nameError').text('Please enter a name').show();
+                    $('#submit-button').prop('disabled', true);
+                } else {
+                    $('#nameError').text('').hide();
+                    $('#submit-button').prop('disabled', false);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

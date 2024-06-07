@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/admin/addDoctor.css">
+    <link rel="icon" href="/images/logo.png" type="image/icon type" />
+
+
+    <title>DoctorHub</title>
+</head>
+
+<body>
+
+
+    <section th:replace="fragments/doctorSidebar::doctorSidebar"></section>
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <nav th:replace="fragments/doctorNavbar::doctorNavbar"></nav>
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="index.html">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Edit Appointment</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="table-data">
+                <div class="order">
+                    <form class="form" th:action="@{/appointments/edit-appointment/{id}(id=${appointment.id})}"
+                        th:object="${appointment}" method="POST" onsubmit="return validateForm()">
+
+                        <div class="input-box">
+                            <label for="date">Preferred Date</label>
+                            <input type="date"  th:value="${appointment.date}" th:id="date" th:name = "date"/>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="startHr">Start working hour</label>
+                            <input type="time" th:value="${appointment.startHr}" th:id="startHr" th:name="startHr" />
+                        </div>
+
+                        <div class="input-box">
+                            <label for="endHr">End working hour</label>
+                            <input type="time" th:value="${appointment.endHr}" th:id="endHr" th:name="endHr"/>
+                        </div>
+                        <button input type="submit" name="submit" id="submit-button" value="submit">Update
+                            Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+    <script type="text/javascript" src="../../static/Js/addAppointmentValidation.js"></script>
+</body>
+
+</html>

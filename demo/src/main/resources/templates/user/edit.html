@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="../../css/admin/addDoctor.css">
+    <link rel="stylesheet" href="../../css/admin/tables.css">
+    <link rel="stylesheet" href="/css/edit.css">
+    <link rel="icon" href="../../images/logo.png" type="image/icon type" />
+    <title>AdminHub</title>
+    <style>
+        /* CSS for the Save button */
+        button[type="submit"] {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            padding: 10px 20px; /* Padding */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        /* CSS for the Cancel link */
+        a.cancel-link {
+            margin-left: 20px; /* Add some margin to the left */
+            color: #f44336; /* Red color */
+            text-decoration: none; /* Remove underline */
+            font-weight: bold; /* Bold text */
+        }
+
+        a.cancel-link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        /* Styling for validation error messages */
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a th:href="@{/user}" class="brand">
+            <i class='bx bxs-smile'></i>
+            <span class="text">UserHub</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a th:href="@{/user/profile}">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Profile</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/user/addPet}">
+                    <i class='bx bxs-group' ></i>
+                    <span class="text">Add Pet</span>
+                </a>
+            </li>
+            <li class="active">
+                <a th:href="@{/user/pets}">
+                    <i class='bx bx-plus-medical'></i>
+                    <span class="text">Pets</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <i class='bx bxs-cog' ></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="logout">
+                    <i class='bx bxs-log-out-circle' ></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu' ></i>
+            <a href="#" class="nav-link">Categories</a>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btn" title="submit"><i class='bx bx-search' ></i></button>
+                </div>
+            </form>
+            <a href="@{user/Profile}" class="profile">
+                <img src="../../static/images/profile.jpg" alt="profile">
+            </a>
+        </nav>
+        <!-- NAVBAR -->
+        <!-- MAIN -->
+        <div class="container">
+            <h1>Edit Pet</h1>
+
+            <form th:action="@{/user/{id}/editPet(id=${pet.id})}" method="post">
+                <input type="hidden" id="id" name="id" th:value="${pet.id}">
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="name">Name:</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="name" name="name" placeholder="Edit your name.." th:value="${pet.name}">
+                        <!-- Use Thymeleaf to populate value -->
+                        <div id="nameError" class="error">Please enter the pet name</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="breed">Breed:</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="breed" name="breed" placeholder="Edit your breed.." th:value="${pet.breed}">
+                        <!-- Use Thymeleaf to populate value -->
+                        <div id="breedError" class="error">Please enter the pet breed</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="age">Age:</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="number" id="age" name="age" placeholder="Edit your age.." th:value="${pet.age}">
+                        <!-- Use Thymeleaf to populate value -->
+                        <div id="ageError" class="error">Please enter a valid age (greater than zero)</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="weight">Weight:</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="number" id="weight" name="weight" placeholder="Edit your weight.." th:value="${pet.weight}">
+                        <!-- Use Thymeleaf to populate value -->
+                        <div id="weightError" class="error">Please enter a valid weight (greater than zero)</div>
+                    </div>
+                </div>
+
+                <button type="submit" id="submit-button">Save</button>
+                <a th:href="@{/user/pets}" class="cancel-link">Cancel</a>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function validateForm() {
+                var isValid = true;
+                
+                // Validate name
+                var name = $('#name').val().trim();
+                if (name === "") {
+                    $('#nameError').show();
+                    isValid = false;
+                } else {
+                    $('#nameError').hide();
+                }
+                
+                // Validate breed
+                var breed = $('#breed').val().trim();
+                if (breed === "") {
+                    $('#breedError').show();
+                    isValid = false;
+                } else {
+                    $('#breedError').hide();
+                }
+                
+                // Validate age
+                var age = $('#age').val();
+                if (age <= 0) {
+                    $('#ageError').show();
+                    isValid = false;
+                } else {
+                    $('#ageError').hide();
+                }
+                
+                // Validate weight
+                var weight = $('#weight').val();
+                if (weight <= 0) {
+                    $('#weightError').show();
+                    isValid = false;
+                } else {
+                    $('#weightError').hide();
+                }
+                
+                return isValid;
+            }
+            
+            // Validate form on input
+            $('input').on('input', function() {
+                validateForm();
+            });
+
+            // Prevent form submission if validation fails
+            $('form').on('submit', function(e) {
+                if (!validateForm()) {
+                    e.preventDefault();
+                }
+            });
+
+            // Ensure the submit button is enabled/disabled correctly when the page loads
+            $('input').trigger('input');
+        });
+    </script>
+</body>
+
+</html>

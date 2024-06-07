@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+	<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="../../../Public/Images/logodowns.png" type="image/gif">
+		<link rel="stylesheet" href="/css/signup.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+		<link rel="icon" href="/images/logo.png" type="image/icon type" />
+	</head>
+
+	<body>
+
+		<div class="container" id="container">
+
+			<div class="form-container sign-up-container">
+	
+				<form th:action="@{/user/Registration}" th:object="${user}" method="POST" id="signupForm">
+
+					<h1>Create Account</h1>
+		
+					<div class="social-container">
+						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+						<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+					</div>
+		
+					<span>or use your email for registration</span>
+					<input type="text" th:field="*{name}" placeholder="Name" name="Name" required />
+					<input type="email" th:field="*{email}" placeholder="Email" name="Email" id="email" required />
+					<div class="error" id="emailError"></div>
+					<input type="text" th:field="*{phone}" placeholder="Phone" name="Phone" required />
+					<div class="error" id="phoneError"></div>
+					<input type="password" th:field="*{password}" placeholder="Password" name="Password" id="password" required />
+					<span class="error" id="passwordError"></span>
+					<span id="passwordValidation"></span>
+					<input type="password" th:field="*{confirmPassword}" placeholder="Confirm Password" name="confirm" id="confirmPassword" required />
+					<span class="error" id="confirmPasswordError"></span>
+					<span id="passwordValidationMessage"></span>
+					<!-- <button type="button" id="sign" name="submit" >Sign Up</button> -->
+					<input type="submit"  onclick="validateForm()" value="Sign Up">
+				</form>
+
+			</div>
+
+			<div class="form-container sign-in-container">
+
+				<form th:action="@{/user/Login}" th:object="${user}" method="POST">
+
+					<h1>Sign in</h1>
+
+					<div class="social-container">
+						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+						<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+					</div>
+
+					<span>or use your account</span>
+					<input type="email"  th:field="*{email}" placeholder="Email" id="E" required />
+					<div class="error" id="eError"></div>
+					<input type="password"   th:field="*{password}" placeholder="Password" name="Password" id="P" required/>
+					<span class="error" id="pError"></span>
+					<a href="#">Forgot your password?</a>
+
+					<button type="submit" name="submit" id="SignIn" >Sign In</button>
+				</form>
+			</div>
+
+			<div class="overlay-container">
+				<div class="overlay">
+					<div class="overlay-panel overlay-left">
+						<h1>Hello, Friend!</h1>
+						<p>Enter your personal details and start journey with us</p>
+						<button class="ghost" id="signIn">Sign In</button>
+
+					</div>
+					<div class="overlay-panel overlay-right">
+						<h1>Welcome Back!</h1>
+						<p>To keep connected with us please login with your personal info</p>
+						<button class="ghost" id="signUp">Sign Up</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="../../Js/signup.js" ></script>
+		<script>
+			$(document).ready(function () {
+				$('#E').on('input', function () {
+					var email = $(this).val();
+					// Regular expression for email validation
+					var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		
+					if (!emailRegex.test(email)) {
+						console.log("error");
+						$('#eError').text('Please enter a valid email').show();
+						$('#SignIn').prop('disabled', true);
+					} else {
+						$('#eError').text('').hide();
+						$('#SignIn').prop('disabled', false);
+					}
+				});
+		
+				$('#P').on('input', function () {
+					var password = $(this).val();
+					if (password.length < 8) {
+						$('#pError').text('Password must be at least 8 characters long').show();
+						$('#SignIn').prop('disabled', true);
+					} else {
+						$('#pError').text('').hide();
+						$('#SignIn').prop('disabled', false);
+					}
+				});
+			});
+		</script>
+		<script>
+			$(document).ready(function () {
+				$('#email').on('input', function () {
+					var email = $(this).val();
+		
+					// Regular expression for email validation
+					var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		
+					if (!emailRegex.test(email)) {
+						$('#emailError').text('Please enter a valid email').show();
+						$('#sign').prop('disabled', true);
+					} else {
+						$('#emailError').text('').hide();
+						$('#sign').prop('disabled', false);
+					}
+				});
+		
+				$('#password').on('input', function () {
+					var password = $(this).val();
+					if (password.length < 8) {
+						$('#passwordError').text('Password must be at least 8 characters long').show();
+						$('#sign').prop('disabled', true);
+					} else {
+						$('#passwordError').text('').hide();
+						$('#sign').prop('disabled', false);
+					}
+					// Check if confirmPassword field is empty and remove error message if so
+					if ($('#confirmPassword').val() === '') {
+						$('#confirmPasswordError').text('').hide();
+					}
+				});
+		
+				$('#confirmPassword').on('input', function () {
+					var password = $('#password').val();
+					var confirmPassword = $(this).val();
+					if (password !== confirmPassword) {
+						$('#confirmPasswordError').text('Passwords do not match').show();
+						$('#sign').prop('disabled', true);
+					} else {
+						$('#confirmPasswordError').text('').hide();
+						$('#sign').prop('disabled', false);
+					}
+					// Check if password field is empty and remove error message if so
+					if ($('#password').val() === '') {
+						$('#passwordError').text('').hide();
+					}
+				});
+		
+				$('#phone').on('input', function () {
+					var phone = $(this).val();
+					// Regular expression for phone number validation (exactly 12 digits and only numeric values)
+					var phoneRegex = /^\d{11}$/;
+					if (!phoneRegex.test(phone)) {
+						$('#phoneError').text('Please enter a valid phone number (exactly 12 digits)').show();
+						$('#sign').prop('disabled', true);
+					} else {
+						$('#phoneError').text('').hide();
+						$('#sign').prop('disabled', false);
+					}
+				});
+			});
+			
+		</script>
+		
+		
+		</head>
+
+	</body>
+
+	</html>

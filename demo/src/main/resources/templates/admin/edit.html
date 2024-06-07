@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="../../css/admin/addDoctor.css">
+    <link rel="icon" href="../../images/logo.png" type="image/icon type" />
+
+    <title>AdminHub</title>
+    <style>
+        .error {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <section th:replace="fragments/adminSidebar :: adminSidebar"></section>
+
+    <!-- CONTENT -->
+    <section id="content">
+        <nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+
+        <!-- MAIN -->
+        <h1>Edit Admin</h1>
+
+        <form action="/admin/edit" method="post" >
+           
+            <label for="name">Name:</label>
+            <input type="text" id="username" name="username" th:value="${admin.username}" required title="input">
+            <div class="error" id="nameError"></div>
+            <br>
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" th:value="${admin.email}" required>
+            <div class="error" id="emailError"></div>
+            <br>
+
+            <label for="phonenumber">Phone Number:</label>
+            <input type="text" id="phonenumber" name="phonenumber" th:value="${admin.phonenumber}" required>
+            <div class="error" id="phoneError"></div>
+            <br>
+           
+            <!-- <button type="submit">Save</button> -->
+            <div class="row">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+
+        <a th:href="@{/admin/list}">Back to List</a>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#email').on('input', function () {
+                var email = $(this).val();
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (!emailRegex.test(email)) {
+                    $('#emailError').text('Please enter a valid email').show();
+                    $('button[type="submit"]').prop('disabled', true);
+                } else {
+                    $('#emailError').text('').hide();
+                    $('button[type="submit"]').prop('disabled', false);
+                }
+            });
+
+            $('#phonenumber').on('input', function () {
+                var phone = $(this).val();
+                var phoneRegex = /^\d{11}$/;
+                if (!phoneRegex.test(phone)) {
+                    $('#phoneError').text('Please enter a valid phone number (exactly 11 digits)').show();
+                    $('button[type="submit"]').prop('disabled', true);
+                } else {
+                    $('#phoneError').text('').hide();
+                    $('button[type="submit"]').prop('disabled', false);
+                }
+            });
+
+            $('#name').on('input', function () {
+                var name = $(this).val();
+                if (name.trim() === '') {
+                    $('#nameError').text('Please enter a name').show();
+                    $('button[type="submit"]').prop('disabled', true);
+                } else {
+                    $('#nameError').text('').hide();
+                    $('button[type="submit"]').prop('disabled', false);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

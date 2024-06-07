@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+    <link rel="stylesheet" href="../../css/admin/tables.css">
+    <link rel="icon" href="../../images/logo.png" type="image/icon type" />
+
+
+	<title>AdminHub</title>
+</head>
+
+<body>
+	<section th:replace="fragments/adminSidebar :: adminSidebar"></section>
+
+	<!-- CONTENT -->
+	<section id="content">
+		<nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">Admins</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="order">
+					<table>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>phonenumber</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr th:each="Admin : ${admins}">
+								<td th:text="${Admin.id}"></td>
+								<td th:text="${Admin.username}"></td>
+								<td th:text="${Admin.email}"></td>
+								<td th:text="${Admin.phonenumber}"></td>
+								
+								<td>
+									<a class = "buttons" id ="edit" th:href="@{/admin/{id}/editAdmin(id=${Admin.id})}">Edit</a>
+									<form th:action="@{/admin/{id}/deleteAdmin(id=${Admin.id})}" method="post">
+										<button class = "buttons" id ="delete"  type="submit">Delete</button>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<a class="buttons" id="edit" th:href="@{/admin/addAdmin}">Add New Admin</a>
+		</main>
+	</section>
+
+</body>
+
+</html>

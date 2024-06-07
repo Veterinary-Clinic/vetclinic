@@ -1,0 +1,116 @@
+ <!-- @GetMapping("/editmovie/{id}")
+public ModelAndView editMovie(@PathVariable("id") Long id, HttpSession session) {
+    ModelAndView mav = new ModelAndView("editMovie.html");
+    String username = (String) session.getAttribute("username");
+    user user = userRepository.findByUsername(username);
+    movie movie = movieRepository.findByIdAndUser(id, user);
+    mav.addObject("movie", movie);
+    return mav;
+}
+
+@PostMapping("/editmovie/{id}")
+public RedirectView updateMovie(@PathVariable("id") Long id, @ModelAttribute movie updatedMovie) {
+    movie existingMovie = movieRepository.findById(id).orElse(null);
+    if (existingMovie != null) {
+        existingMovie.setName(updatedMovie.getName());
+        existingMovie.setYear(updatedMovie.getYear());
+        movieRepository.save(existingMovie);
+    }
+    return new RedirectView("/user/movies");
+}
+
+@GetMapping("/deletemovie/{id}")
+public RedirectView deleteMovie(@PathVariable("id") Long id) {
+    movieRepository.deleteById(id);
+    return new RedirectView("/user/movies");
+}
+
+{% comment %} html {% endcomment %} {% endcomment %}
+list-users -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <link th:href="@{/css/pages.css}" rel="stylesheet" type="text/css">
+    <title>List users</title>
+     <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>List users</h2>
+    <table id="users">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Password</th>
+                <th>DOB</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.dob}"></td>
+                <td>
+                    <a th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a>
+                    <form th:action="@{/user/{id}/delete(id=${user.id})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/user/signup">Add</a>
+</body>
+</html>
+
+
+edit
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit User</title>
+</head>
+<body>
+    <h2>Edit User</h2>
+    <form action="#" th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label for="username">Username:</label>
+        <input type="text" id="username" th:field="*{username}" /><br/>
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:field="*{password}" /><br/>
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" th:field="*{dob}" /><br/>
+        <button type="submit">Save</button>
+    </form>
+    <a href="/user">Cancel</a>
+</body>
+</html>
+
+
